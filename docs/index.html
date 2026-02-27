@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apex Team Comp Roller</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        margin: 0;
+        padding: 24px;
+        background: #0f1115;
+        color: #e7e7e7;
+      }
+      .wrap {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 22px;
+      }
+      .sub {
+        margin: 0 0 16px;
+        opacity: 0.85;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0 18px;
+        align-items: center;
+      }
+      .toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid #2a3447;
+        background: #151a24;
+        margin-left: auto;
+      }
+      .toggle input {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+      }
+      .toggle span {
+        font-size: 13px;
+        opacity: 0.9;
+      }
+      button {
+        background: #1c2330;
+        border: 1px solid #2a3447;
+        color: #e7e7e7;
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #222b3b;
+      }
+      button:active {
+        transform: translateY(1px);
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .counter {
+        display: inline-block;
+        min-width: 22px;
+        text-align: center;
+        margin-left: 8px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid #2a3447;
+        background: #151a24;
+        font-size: 12px;
+        opacity: 0.9;
+      }
+      .card {
+        background: #151a24;
+        border: 1px solid #2a3447;
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 170px 1fr;
+        gap: 10px;
+        padding: 10px 0;
+        border-top: 1px solid #243047;
+        --rowColor: #e7e7e7;
+      }
+      .row:first-child {
+        border-top: none;
+      }
+      .player {
+        font-weight: 700;
+      }
+      .playerWrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .nameInput {
+        appearance: none;
+        border: none;
+        background: transparent;
+        color: var(--rowColor);
+        font: inherit;
+        font-weight: 700;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        min-width: 0;
+      }
+      .nameInput:focus {
+        outline: none;
+      }
+      .rerollBtn {
+        width: 52px;
+        height: 34px;
+        padding: 0;
+        border-radius: 10px;
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: var(--rowColor);
+        font-size: 18px;
+        letter-spacing: 0.2px;
+      }
+      .btnCount {
+        margin-left: 6px;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 1;
+        opacity: 0.9;
+      }
+      .legend {
+        font-weight: 600;
+        color: var(--rowColor);
+      }
+      .legendRow {
+        display: grid;
+        grid-template-columns: 1fr 220px 225px;
+        align-items: center;
+        column-gap: 12px;
+      }
+      .rerollLegend {
+        font-weight: 600;
+        color: var(--rowColor);
+        justify-self: center;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .legendSpacer {
+        /* Fixed right-side spacer to pull reroll text inward */
+      }
+      .rerollAvailable {
+        opacity: 0.65;
+        font-weight: 600;
+      }
+      .cat {
+        color: var(--rowColor);
+        opacity: 0.85;
+      }
+
+      .colorInput {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border-radius: 0;
+        border: 1px solid #2a3447;
+        background: #1c2330;
+        cursor: pointer;
+        display: none;
+      }
+      body.settings .colorInput {
+        display: inline-block;
+      }
+      .note {
+        margin-top: 14px;
+        font-size: 13px;
+        opacity: 0.8;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Apex Team Comp Roller</h1>
+      <p class="sub">Reroll the full team or a single player. No player can roll the same legend twice in a row.</p>
+
+      <div class="controls">
+        <button id="rerollAll" type="button">Reroll All <span class="counter" id="counterAll">0</span></button>
+
+        <label class="toggle" title="Toggle settings mode">
+          <input id="settingsToggle" type="checkbox" />
+          <span>Settings</span>
+        </label>
+      </div>
+
+      <div class="card" id="output" aria-live="polite"></div>
+
+      <div class="note">
+        Edit names inline. Use ↻ to reroll a single player.
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
